@@ -453,13 +453,20 @@ void rotaCmd() {
   }
 
   if (server.hasArg("inverter")) {
-    String v = server.arg("inverter");
-    recebeu = true;
-    oledInvertido = (v == "1" || v == "on");
-    if (oledOk) display.invertDisplay(oledInvertido);
-    resp += oledInvertido ? "cores invertidas; " : "cores normais; ";
-    registrarLog("INFO", "Comando de " + origem + ": inverter=" + String(oledInvertido ? 1 : 0));
+  String v = server.arg("inverter");
+  recebeu = true;
+  if (v == "1" || v == "on") {
+    oledInvertido = true;
+  } else if (v == "0" || v == "off") {
+    oledInvertido = false;
+  } else {
+    responder(false, "valor invalido para inverter (use 1 ou 0)");
+    return;
   }
+  if (oledOk) display.invertDisplay(oledInvertido);
+  resp += oledInvertido ? "cores invertidas; " : "cores normais; ";
+  registrarLog("INFO", "Comando de " + origem + ": inverter=" + String(oledInvertido ? 1 : 0));
+}
 
   if (server.hasArg("msg")) {
     String m = limparTexto(server.arg("msg"), 30);
