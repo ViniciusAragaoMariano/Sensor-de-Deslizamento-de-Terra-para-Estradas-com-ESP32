@@ -1,0 +1,25 @@
+Detector de Tremor com ESP32
+
+- Objetivo: O protótipo mede vibrações, classifica sua intensidade e exibe os resultados 
+em um painel web e em um display OLED.
+
+- Componentes: O MPU-6050 mede a aceleração nos três eixos. O DHT11 mede temperatura e umidade, 
+usadas apenas como informações ambientais. O MPU-6050 e o OLED compartilham o barramento I²C.
+
+- Inicialização (setup()): Configura a comunicação serial, o armazenamento LittleFS, os sensores, 
+o OLED, a conexão Wi-Fi, o relógio e o servidor web.
+
+- Amostragem (loop()): Lê o acelerômetro a uma taxa nominal de 100 Hz. A cada 50 leituras válidas, 
+calcula a intensidade RMS e estima a frequência da vibração.
+
+- Classificação: Com os limiares padrão e a frequência entre 3 e 14 Hz, a vibração é leve de 0,03 g até 
+abaixo de 0,10 g e forte a partir de 0,10 g. Nos demais casos, o painel indica parado.
+
+- Eventos e logs: Conta um evento a cada entrada no nível forte. Registra eventos, falhas e 
+mudanças de conexão no Monitor Serial e, quando disponível, no arquivo /log.txt.
+
+- Painel web: Mostra o gráfico de intensidade, as leituras dos sensores, o status da rede e os logs. 
+Também permite ajustar os limiares, controlar o OLED e enviar mensagens temporárias.
+
+- Wi-Fi e horário: Se a conexão inicial falhar, o ESP32 cria a rede de reserva DetectorTremor. 
+O relógio pode ser sincronizado pela internet ou ajustado pelo navegador.
