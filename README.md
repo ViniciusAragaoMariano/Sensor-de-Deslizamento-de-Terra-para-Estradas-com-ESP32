@@ -20,3 +20,9 @@ As informações processadas são exibidas localmente em uma tela **OLED** e dis
 * **Software / Comunicação:**
   * Servidor HTTP embarcado no ESP32
   * Protocolos de rede local para transmissão de telemetria
+
+## Integrantes
+* Caio Ribeiro
+* Evelin Monique
+* Henrique Cardoso
+* Vinícius Aragão
